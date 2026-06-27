@@ -1,5 +1,6 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 import Head from 'next/head';
 
 interface LayoutProps {
@@ -26,6 +27,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }
