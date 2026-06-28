@@ -64,7 +64,10 @@ export default function Home() {
   };
 
   return (
-    <Layout>
+    <Layout
+      title="Custom Packaging Boxes USA — Free Design & Shipping | FineCustomBoxes"
+      description="Order custom packaging boxes with logo at wholesale prices. Free design, free shipping, 50 box minimum. Trusted by 5,000+ USA businesses. Get a free quote today!"
+    >
       {/* Top Bar */}
       <div className="bg-gray-900 text-white text-sm py-2 px-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">

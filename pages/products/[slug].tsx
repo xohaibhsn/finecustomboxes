@@ -98,6 +98,30 @@ export default function ProductPage() {
 
   return (
     <Layout title={`${product.name} — FineCustomBoxes`} description={product.desc}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "description": product.desc,
+            "brand": {
+              "@type": "Brand",
+              "name": "FineCustomBoxes"
+            },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "FineCustomBoxes"
+              }
+            }
+          })
+        }}
+      />
       {/* Hero */}
       <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-20 px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
