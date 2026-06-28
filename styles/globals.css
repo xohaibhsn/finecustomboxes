@@ -248,6 +248,7 @@ html {
 }
 
 .nav-main-inner {
+  position: relative;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 48px;
@@ -320,27 +321,39 @@ html {
 .nav-mega {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  transform: translateY(8px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
-  width: min(920px, calc(100vw - 32px));
   background: white;
-  border-radius: 16px;
+  border-radius: 0 0 16px 16px;
   border: 1.5px solid #e5e7eb;
+  border-top: 2px solid #facc15;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.04);
   padding: 28px;
   z-index: 200;
 }
 
-.nav-mega-wrap:hover .nav-mega,
-.nav-mega-wrap.open .nav-mega {
+.nav-mega.open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
+}
+
+/* invisible bridge so mouse can travel from Products link to panel */
+.nav-mega::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 10px;
 }
 
 .nav-mega-grid {

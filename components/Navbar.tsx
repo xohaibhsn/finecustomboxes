@@ -109,14 +109,13 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Nav */}
-      <nav className="nav-main">
+      <nav className="nav-main" onMouseLeave={() => setMegaOpen(false)}>
         <div className="nav-main-inner">
           <Link href="/" className="nav-link">Home</Link>
 
           <div
             className={`nav-mega-wrap${megaOpen ? ' open' : ''}`}
             onMouseEnter={() => setMegaOpen(true)}
-            onMouseLeave={() => setMegaOpen(false)}
           >
             <button className={`nav-link${megaOpen ? ' active' : ''}`} aria-expanded={megaOpen}>
               Products
@@ -124,30 +123,33 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-
-            <div className="nav-mega">
-              <div className="nav-mega-grid">
-                <MegaColumn title="By Industry" titleBg="#fdf2f8" titleColor="#9d174d" links={industryLinks} />
-                <MegaColumn title="By Material" titleBg="#fefce8" titleColor="#854d0e" links={materialLinks} />
-                <MegaColumn title="By Style" titleBg="#eff6ff" titleColor="#1d4ed8" links={styleLinks} />
-              </div>
-              <div className="nav-mega-footer">
-                <p style={{ margin: 0, fontSize: '13px', color: '#6b7280' }}>
-                  <strong style={{ color: '#111827' }}>50+ box styles</strong> · Free design · Free USA shipping
-                </p>
-                <Link href="/products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#111827', color: 'white', padding: '10px 20px', borderRadius: '10px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', transition: 'all 0.2s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#facc15'; (e.currentTarget as HTMLAnchorElement).style.color = '#111827'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#111827'; (e.currentTarget as HTMLAnchorElement).style.color = 'white'; }}>
-                  Browse All Products →
-                </Link>
-              </div>
-            </div>
           </div>
 
           <Link href="/about" className="nav-link">About</Link>
           <Link href="/blog" className="nav-link">Blog</Link>
           <Link href="/contact" className="nav-link">Contact</Link>
           <Link href="/quote" className="nav-link nav-link-all">Get Quote</Link>
+
+          <div
+            className={`nav-mega${megaOpen ? ' open' : ''}`}
+            onMouseEnter={() => setMegaOpen(true)}
+          >
+            <div className="nav-mega-grid">
+              <MegaColumn title="By Industry" titleBg="#fdf2f8" titleColor="#9d174d" links={industryLinks} />
+              <MegaColumn title="By Material" titleBg="#fefce8" titleColor="#854d0e" links={materialLinks} />
+              <MegaColumn title="By Style" titleBg="#eff6ff" titleColor="#1d4ed8" links={styleLinks} />
+            </div>
+            <div className="nav-mega-footer">
+              <p style={{ margin: 0, fontSize: '13px', color: '#6b7280' }}>
+                <strong style={{ color: '#111827' }}>50+ box styles</strong> · Free design · Free USA shipping
+              </p>
+              <Link href="/products" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#111827', color: 'white', padding: '10px 20px', borderRadius: '10px', fontSize: '13px', fontWeight: 800, textDecoration: 'none', transition: 'all 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#facc15'; (e.currentTarget as HTMLAnchorElement).style.color = '#111827'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#111827'; (e.currentTarget as HTMLAnchorElement).style.color = 'white'; }}>
+                Browse All Products →
+              </Link>
+            </div>
+          </div>
         </div>
       </nav>
 
