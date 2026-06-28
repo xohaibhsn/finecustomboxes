@@ -30,8 +30,8 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-10 w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-xl">F</span>
+          <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <span className="text-black font-black text-xl">F</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Admin Login</h1>
           <p className="text-gray-500 mt-1">FineCustomBoxes Dashboard</p>
@@ -52,7 +52,7 @@ export default function AdminLogin() {
           />
           <button
             type="submit" disabled={loading}
-            className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition disabled:opacity-50"
+            className="w-full bg-gray-900 text-white py-3 rounded-lg font-black hover:bg-gray-800 transition disabled:opacity-50"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>

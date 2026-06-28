@@ -123,13 +123,13 @@ export default function ProductPage() {
         }}
       />
       {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-20 px-4">
+      <section className="bg-gray-900 text-white py-20 px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
           <div className="text-8xl">{product.icon}</div>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold">{product.name}</h1>
             <p className="mt-4 text-emerald-100 text-lg max-w-2xl">{product.desc}</p>
-            <Link href="/quote" className="mt-6 inline-block bg-white text-emerald-700 px-8 py-3 rounded-lg font-bold hover:bg-emerald-50 transition">
+            <Link href="/quote" className="mt-6 inline-block bg-yellow-400 text-black px-8 py-3 rounded-lg font-black hover:bg-yellow-500 transition">
               Get Free Quote
             </Link>
           </div>
@@ -165,15 +165,15 @@ export default function ProductPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 bg-emerald-700 text-white text-center">
+      <section className="py-16 px-4 bg-yellow-400 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold">Ready to Order {product.name}?</h2>
           <p className="mt-3 text-emerald-100">Get a free quote in minutes. Free design & free shipping included!</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-            <Link href="/quote" className="bg-white text-emerald-700 px-8 py-3 rounded-lg font-bold hover:bg-emerald-50 transition">
+            <Link href="/quote" className="bg-gray-900 text-white px-8 py-3 rounded-lg font-black hover:bg-gray-800 transition">
               Get Free Quote
             </Link>
-            <Link href="/products" className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-emerald-800 transition">
+            <Link href="/products" className="border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-lg font-black hover:bg-gray-100 transition">
               View All Products
             </Link>
           </div>

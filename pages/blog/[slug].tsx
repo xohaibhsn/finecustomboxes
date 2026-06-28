@@ -34,7 +34,7 @@ export default function BlogPost({ post }: { post: Post | null }) {
       title={post.meta_title || post.title}
       description={post.meta_description || post.excerpt}
     >
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-20 px-4 text-center">
+      <section className="bg-gray-900 text-white py-20 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="text-emerald-300 text-sm mb-4">
             {new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
