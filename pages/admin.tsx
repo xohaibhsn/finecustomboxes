@@ -4,17 +4,28 @@ import { useRouter } from 'next/router';
 interface Quote { id: number; name: string; email: string; phone: string; company: string; box_type: string; quantity: string; size: string; message: string; status: string; created_at: string; }
 interface Contact { id: number; name: string; email: string; phone: string; message: string; created_at: string; }
 interface BlogPost { id: number; title: string; slug: string; excerpt: string; content: string; meta_title: string; meta_description: string; status: string; created_at: string; }
+interface Product { id: number; name: string; slug: string; description: string; image: string; created_at: string; }
 
 export default function Admin() {
   const router = useRouter();
   const [token, setToken] = useState('');
-  const [tab, setTab] = useState<'quotes' | 'contacts' | 'blog'>('quotes');
+  const [tab, setTab] = useState<'quotes' | 'contacts' | 'blog' | 'products'>('quotes');
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  // Blog form
   const [showBlogForm, setShowBlogForm] = useState(false);
   const [editPost, setEditPost] = useState<BlogPost | null>(null);
   const [blogForm, setBlogForm] = useState({ title: '', slug: '', excerpt: '', content: '', meta_title: '', meta_description: '', status: 'draft' });
+  const [blogImageUrl, setBlogImageUrl] = useState('');
+  const [blogUploading, setBlogUploading] = useState(false);
+
+  // Product form
+  const [showProductForm, setShowProductForm] = useState(false);
+  const [productForm, setProductForm] = useState({ name: '', slug: '', description: '', image: '' });
+  const [productUploading, setProductUploading] = useState(false);
 
   useEffect(() => {
     const t = localStorage.getItem('fcb-admin-token');
@@ -24,17 +35,41 @@ export default function Admin() {
   }, []);
 
   const fetchAll = async (t: string) => {
-    const [q, c, b] = await Promise.all([
+    const [q, c, b, p] = await Promise.all([
       fetch('/api/admin-quotes', { headers: { authorization: t } }).then(r => r.json()),
       fetch('/api/admin-contacts', { headers: { authorization: t } }).then(r => r.json()),
       fetch('/api/admin-blog', { headers: { authorization: t } }).then(r => r.json()),
+      fetch('/api/admin-products', { headers: { authorization: t } }).then(r => r.json()),
     ]);
     setQuotes(Array.isArray(q) ? q : []);
     setContacts(Array.isArray(c) ? c : []);
     setPosts(Array.isArray(b) ? b : []);
+    setProducts(Array.isArray(p) ? p : []);
   };
 
   const logout = () => { localStorage.removeItem('fcb-admin-token'); router.push('/admin-login'); };
+
+  const uploadImage = async (file: File, type: 'blog' | 'product') => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      if (type === 'blog') setBlogUploading(true);
+      else setProductUploading(true);
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', authorization: token },
+          body: JSON.stringify({ data: reader.result }),
+        });
+        const data = await res.json();
+        if (type === 'blog') { setBlogImageUrl(data.url); setBlogUploading(false); }
+        else { setProductForm(f => ({ ...f, image: data.url })); setProductUploading(false); }
+      } catch {
+        if (type === 'blog') setBlogUploading(false);
+        else setProductUploading(false);
+      }
+    };
+  };
 
   const updateQuoteStatus = async (id: number, status: string) => {
     await fetch('/api/admin-quotes', { method: 'PATCH', headers: { 'Content-Type': 'application/json', authorization: token }, body: JSON.stringify({ id, status }) });
@@ -47,14 +82,33 @@ export default function Admin() {
     fetchAll(token);
   };
 
+  const saveProduct = async () => {
+    if (!productForm.name || !productForm.slug) { alert('Name and slug required!'); return; }
+    await fetch('/api/admin-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', authorization: token },
+      body: JSON.stringify(productForm),
+    });
+    setShowProductForm(false);
+    setProductForm({ name: '', slug: '', description: '', image: '' });
+    fetchAll(token);
+  };
+
+  const deleteProduct = async (id: number) => {
+    if (!confirm('Delete this product?')) return;
+    await fetch(`/api/admin-products?id=${id}`, { method: 'DELETE', headers: { authorization: token } });
+    fetchAll(token);
+  };
+
   const saveBlogPost = async () => {
-    if (!blogForm.title || !blogForm.slug || !blogForm.content) { alert('Title, slug, and content are required!'); return; }
+    if (!blogForm.title || !blogForm.slug || !blogForm.content) { alert('Title, slug, and content required!'); return; }
     const method = editPost ? 'PATCH' : 'POST';
     const body = editPost ? { ...blogForm, id: editPost.id } : blogForm;
     await fetch('/api/admin-blog', { method, headers: { 'Content-Type': 'application/json', authorization: token }, body: JSON.stringify(body) });
     setShowBlogForm(false);
     setEditPost(null);
     setBlogForm({ title: '', slug: '', excerpt: '', content: '', meta_title: '', meta_description: '', status: 'draft' });
+    setBlogImageUrl('');
     fetchAll(token);
   };
 
@@ -84,16 +138,17 @@ export default function Admin() {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white border-b px-6 flex gap-6">
-        {(['quotes', 'contacts', 'blog'] as const).map((t) => (
+      <div className="bg-white border-b px-6 flex gap-6 overflow-x-auto">
+        {(['quotes', 'contacts', 'products', 'blog'] as const).map((t) => (
           <button key={t} onClick={() => setTab(t)}
-            className={`py-4 px-2 font-semibold capitalize border-b-2 transition ${tab === t ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
-            {t} {t === 'quotes' ? `(${quotes.length})` : t === 'contacts' ? `(${contacts.length})` : `(${posts.length})`}
+            className={`py-4 px-2 font-semibold capitalize border-b-2 transition whitespace-nowrap ${tab === t ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+            {t} {t === 'quotes' ? `(${quotes.length})` : t === 'contacts' ? `(${contacts.length})` : t === 'blog' ? `(${posts.length})` : `(${products.length})`}
           </button>
         ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+
         {/* Quotes Tab */}
         {tab === 'quotes' && (
           <div>
@@ -145,15 +200,82 @@ export default function Admin() {
               <div className="space-y-4">
                 {contacts.map((c) => (
                   <div key={c.id} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-bold text-gray-800 mb-1">{c.name}</h3>
-                        <div className="text-sm text-gray-500 space-y-1">
-                          <div>📧 {c.email} {c.phone && `| 📞 ${c.phone}`}</div>
-                          <div>💬 {c.message}</div>
-                          <div>🕐 {new Date(c.created_at).toLocaleDateString('en-US')}</div>
-                        </div>
+                    <h3 className="font-bold text-gray-800 mb-1">{c.name}</h3>
+                    <div className="text-sm text-gray-500 space-y-1">
+                      <div>📧 {c.email} {c.phone && `| 📞 ${c.phone}`}</div>
+                      <div>💬 {c.message}</div>
+                      <div>🕐 {new Date(c.created_at).toLocaleDateString('en-US')}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Products Tab */}
+        {tab === 'products' && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Products</h2>
+              <button onClick={() => setShowProductForm(true)}
+                className="bg-emerald-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition">
+                + Add Product
+              </button>
+            </div>
+
+            {showProductForm && (
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
+                <h3 className="font-bold text-gray-800 text-lg mb-4">New Product</h3>
+                <div className="space-y-4">
+                  <input placeholder="Product Name *" value={productForm.name}
+                    onChange={(e) => setProductForm({ ...productForm, name: e.target.value, slug: e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') })}
+                    className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500" />
+                  <input placeholder="Slug *" value={productForm.slug}
+                    onChange={(e) => setProductForm({ ...productForm, slug: e.target.value })}
+                    className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500" />
+                  <textarea placeholder="Description" rows={3} value={productForm.description}
+                    onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
+                    className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500" />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Product Image</label>
+                    <input type="file" accept="image/*"
+                      onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'product')}
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3" />
+                    {productUploading && <p className="text-emerald-600 text-sm mt-2">⏳ Uploading...</p>}
+                    {productForm.image && (
+                      <div className="mt-3">
+                        <img src={productForm.image} alt="Preview" className="w-32 h-32 object-cover rounded-lg border" />
+                        <p className="text-green-600 text-sm mt-1">✅ Image uploaded!</p>
                       </div>
+                    )}
+                  </div>
+                  <div className="flex gap-3">
+                    <button onClick={saveProduct} className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">
+                      Save Product
+                    </button>
+                    <button onClick={() => { setShowProductForm(false); setProductForm({ name: '', slug: '', description: '', image: '' }); }}
+                      className="bg-gray-100 text-gray-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {products.length === 0 ? (
+              <div className="text-center py-20 text-gray-400">No products added yet</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {products.map((p) => (
+                  <div key={p.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    {p.image && <img src={p.image} alt={p.name} className="w-full h-48 object-cover" />}
+                    <div className="p-4">
+                      <h3 className="font-bold text-gray-800">{p.name}</h3>
+                      <p className="text-gray-500 text-sm mt-1">{p.description}</p>
+                      <button onClick={() => deleteProduct(p.id)} className="mt-3 bg-red-50 text-red-600 px-3 py-2 rounded-lg text-sm hover:bg-red-100 transition w-full">
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -183,9 +305,22 @@ export default function Admin() {
                   <input placeholder="Slug *" value={blogForm.slug}
                     onChange={(e) => setBlogForm({ ...blogForm, slug: e.target.value })}
                     className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500" />
-                  <textarea placeholder="Excerpt (short description)" rows={2} value={blogForm.excerpt}
+                  <textarea placeholder="Excerpt" rows={2} value={blogForm.excerpt}
                     onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
                     className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500" />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
+                    <input type="file" accept="image/*"
+                      onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], 'blog')}
+                      className="w-full border border-gray-200 rounded-lg px-4 py-3" />
+                    {blogUploading && <p className="text-emerald-600 text-sm mt-2">⏳ Uploading...</p>}
+                    {blogImageUrl && (
+                      <div className="mt-3">
+                        <img src={blogImageUrl} alt="Preview" className="w-32 h-32 object-cover rounded-lg border" />
+                        <p className="text-green-600 text-sm mt-1">✅ Image uploaded! URL: {blogImageUrl}</p>
+                      </div>
+                    )}
+                  </div>
                   <textarea placeholder="Content (HTML allowed) *" rows={8} value={blogForm.content}
                     onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
                     className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 font-mono text-sm" />
@@ -202,7 +337,7 @@ export default function Admin() {
                   </select>
                   <div className="flex gap-3">
                     <button onClick={saveBlogPost} className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">
-                      {editPost ? 'Update Post' : 'Publish Post'}
+                      {editPost ? 'Update Post' : 'Save Post'}
                     </button>
                     <button onClick={() => { setShowBlogForm(false); setEditPost(null); }} className="bg-gray-100 text-gray-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
                       Cancel
