@@ -139,12 +139,12 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div style={{ background: '#0a0f1a', borderTop: '1px solid #1e293b', padding: '20px 0' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <span style={{ fontSize: '13px', color: '#4b5563' }}>© {new Date().getFullYear()} FineCustomBoxes. All rights reserved.</span>
+          <span style={{ fontSize: '13px', color: '#ffffff' }}>© {new Date().getFullYear()} FineCustomBoxes. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '24px' }}>
             {[{ name: 'Privacy Policy', href: '/privacy-policy' }, { name: 'Terms & Conditions', href: '/terms' }, { name: 'Contact', href: '/contact' }].map(l => (
-              <Link key={l.href} href={l.href} style={{ fontSize: '13px', color: '#4b5563', textDecoration: 'none', transition: 'color 0.2s' }}
+              <Link key={l.href} href={l.href} style={{ fontSize: '13px', color: '#ffffff', textDecoration: 'none', transition: 'color 0.2s' }}
                 onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#facc15'}
-                onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#4b5563'}>
+                onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'}>
                 {l.name}
               </Link>
             ))}
