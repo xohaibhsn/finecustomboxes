@@ -11,7 +11,7 @@ export default function Footer() {
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px' }}>
             {['✅ 100% Satisfaction Guarantee', '🎨 Free Design Service', '🚚 Free USA Shipping', '📦 No Die Charges', '⚡ Fast Turnaround'].map(t => (
-              <span key={t} style={{ fontSize: '13px', fontWeight: 700, color: '#d1d5db', letterSpacing: '0.02em' }}>{t}</span>
+              <span key={t} style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', letterSpacing: '0.02em' }}>{t}</span>
             ))}
           </div>
         </div>
@@ -32,23 +32,23 @@ export default function Footer() {
                 )}
                 <span style={{ fontWeight: 900, fontSize: '16px', color: 'white' }}>FineCustomBoxes</span>
               </div>
-              <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.7, margin: '0 0 24px 0', maxWidth: '280px' }}>
+              <p style={{ fontSize: '14px', color: '#ffffff', lineHeight: 1.7, margin: '0 0 24px 0', maxWidth: '280px' }}>
                 Premium custom packaging solutions for businesses across the USA. Quality you can trust, prices you'll love.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
-                <a href={`tel:${settings.phone || '+15550000000'}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#9ca3af', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
+                <a href={`tel:${settings.phone || '+15550000000'}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
                   onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#facc15'}
-                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#9ca3af'}>
+                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'}>
                   <span style={{ width: '32px', height: '32px', background: '#1e293b', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', flexShrink: 0 }}>📞</span>
                   {settings.phone || '+1 (555) 000-0000'}
                 </a>
-                <a href={`mailto:${settings.email || 'info@finecustomboxes.com'}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#9ca3af', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
+                <a href={`mailto:${settings.email || 'info@finecustomboxes.com'}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
                   onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#facc15'}
-                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#9ca3af'}>
+                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'}>
                   <span style={{ width: '32px', height: '32px', background: '#1e293b', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', flexShrink: 0 }}>📧</span>
                   {settings.email || 'info@finecustomboxes.com'}
                 </a>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#9ca3af', fontSize: '14px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontSize: '14px' }}>
                   <span style={{ width: '32px', height: '32px', background: '#1e293b', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', flexShrink: 0 }}>📍</span>
                   {settings.address || 'United States'}
                 </div>
@@ -77,9 +77,9 @@ export default function Footer() {
                   { name: 'Display Boxes', slug: 'display-boxes' },
                 ].map(p => (
                   <li key={p.slug}>
-                    <Link href={`/products/${p.slug}`} style={{ color: '#9ca3af', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
+                    <Link href={`/products/${p.slug}`} style={{ color: '#ffffff', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
                       onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#facc15'}
-                      onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#9ca3af'}>
+                      onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'}>
                       {p.name}
                     </Link>
                   </li>
@@ -102,9 +102,9 @@ export default function Footer() {
                   { name: 'Terms & Conditions', href: '/terms' },
                 ].map(l => (
                   <li key={l.href}>
-                    <Link href={l.href} style={{ color: '#9ca3af', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
+                    <Link href={l.href} style={{ color: '#ffffff', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
                       onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = '#facc15'}
-                      onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#9ca3af'}>
+                      onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff'}>
                       {l.name}
                     </Link>
                   </li>
@@ -124,7 +124,7 @@ export default function Footer() {
                   { icon: '✅', text: '100% Satisfaction' },
                   { icon: '🌿', text: 'Eco-Friendly Options' },
                 ].map(i => (
-                  <li key={i.text} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#9ca3af', fontSize: '14px' }}>
+                  <li key={i.text} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontSize: '14px' }}>
                     <span>{i.icon}</span>
                     <span>{i.text}</span>
                   </li>
