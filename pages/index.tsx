@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSettings } from '../hooks/useSettings';
 
 const categories = [
   { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products', bg: 'bg-gray-100' },
@@ -49,6 +50,7 @@ const faqs = [
 const clientLogos = ['Amazon', 'Walmart', 'Target', 'Shopify', 'Etsy', 'eBay'];
 
 export default function Home() {
+  const { settings } = useSettings();
   const [quoteForm, setQuoteForm] = useState({ name: '', email: '', phone: '', boxType: '', quantity: '' });
   const [quoteStatus, setQuoteStatus] = useState('');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -71,7 +73,12 @@ export default function Home() {
       description="Order custom packaging boxes with logo at wholesale prices. Free design, free shipping, 50 box minimum. Trusted by 5,000+ USA businesses. Get a free quote today!"
     >
       {/* Hero — White BG, Text Left, Form Right */}
-      <section className="bg-white py-16 px-4 border-b border-gray-100">
+      <section className="py-16 px-4 border-b border-gray-100"
+        style={settings.hero_image_url ? {
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url(${settings.hero_image_url})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        } : { backgroundColor: '#ffffff' }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div>
@@ -79,13 +86,10 @@ export default function Home() {
               #1 Custom Packaging USA
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-              Custom Packaging<br />
-              <span className="text-yellow-500">Your Customers</span><br />
-              Will Love
+              {settings.hero_title}
             </h1>
             <p className="text-gray-600 text-lg mt-4 leading-relaxed">
-              High-quality custom boxes with free design, free shipping, and low minimums.
-              Trusted by 5,000+ businesses across the United States.
+              {settings.hero_subtitle}
             </p>
 
             {/* Trust Badges */}

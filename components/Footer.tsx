@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import { useSettings } from '../hooks/useSettings';
 
 export default function Footer() {
+  const { settings } = useSettings();
   return (
     <footer className="bg-gray-900 text-gray-300">
       {/* Trust Strip */}
@@ -25,11 +27,11 @@ export default function Footer() {
             Premium custom packaging solutions for businesses across the USA. Quality you can trust, prices you'll love.
           </p>
           <div className="space-y-2 text-sm">
-            <div><a href="tel:+15550000000" className="hover:text-yellow-400 transition">📞 +1 (555) 000-0000</a></div>
-            <div><a href="mailto:info@finecustomboxes.com" className="hover:text-yellow-400 transition">📧 info@finecustomboxes.com</a></div>
-            <div><span>📍 United States</span></div>
+            <div><a href={`tel:${settings.phone}`} className="hover:text-yellow-400 transition">📞 {settings.phone}</a></div>
+            <div><a href={`mailto:${settings.email}`} className="hover:text-yellow-400 transition">📧 {settings.email}</a></div>
+            <div><span>📍 {settings.address}</span></div>
           </div>
-          <a href="https://wa.me/15550000000" target="_blank" rel="noopener noreferrer"
+          <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-black hover:bg-green-600 transition">
             💬 WhatsApp Us
           </a>
