@@ -12,19 +12,19 @@ export default function PrivacyPolicy() {
   ];
 
   return (
-    <Layout title="Privacy Policy — FineCustomBoxes" description="Privacy policy for FineCustomBoxes custom packaging services.">
-      <section style={{ background: '#111827', padding: '80px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px', textAlign: 'center' }}>
-          <h1 style={{ fontSize: '52px', fontWeight: 900, color: 'white', margin: '0 0 12px 0' }}>Privacy Policy</h1>
-          <p style={{ color: '#9ca3af', fontSize: '16px', margin: 0 }}>Last updated: June 2026</p>
+    <Layout title="Privacy Policy — FineCustomBoxes" description="Privacy policy for FineCustomBoxes.">
+      <section style={{ background: '#111827' }} className="page-section">
+        <div className="page-container" style={{ textAlign: 'center' }}>
+          <h1 className="page-title">Privacy Policy</h1>
+          <p style={{ color: '#9ca3af', fontSize: '15px', margin: 0 }}>Last updated: June 2026</p>
         </div>
       </section>
-      <section style={{ background: 'white', padding: '80px 0' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <section style={{ background: 'white' }} className="page-section">
+        <div className="narrow-container">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             {sections.map(s => (
-              <div key={s.title} style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '32px' }}>
-                <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827', margin: '0 0 12px 0' }}>{s.title}</h2>
+              <div key={s.title} style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '28px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#111827', margin: '0 0 10px 0' }}>{s.title}</h2>
                 <p style={{ color: '#6b7280', fontSize: '15px', lineHeight: 1.8, margin: 0 }}>{s.content}</p>
               </div>
             ))}

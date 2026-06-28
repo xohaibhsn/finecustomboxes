@@ -8,35 +8,35 @@ interface Post { id: number; title: string; slug: string; content: string; excer
 export default function BlogPost({ post }: { post: Post | null }) {
   if (!post) return (
     <Layout title="Post Not Found — FineCustomBoxes">
-      <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', textAlign: 'center', padding: '80px 48px' }}>
-        <div style={{ fontSize: '64px', marginBottom: '16px' }}>📝</div>
-        <h1 style={{ fontSize: '32px', fontWeight: 900, color: '#374151', margin: '0 0 12px 0' }}>Post Not Found</h1>
-        <Link href="/blog" style={{ display: 'inline-block', background: '#111827', color: 'white', padding: '14px 32px', borderRadius: '12px', fontWeight: 900, textDecoration: 'none', marginTop: '16px' }}>Back to Blog</Link>
+      <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', textAlign: 'center' }} className="page-section">
+        <div style={{ fontSize: '56px', marginBottom: '14px' }}>📝</div>
+        <h1 style={{ fontSize: '28px', fontWeight: 900, color: '#374151', margin: '0 0 20px 0' }}>Post Not Found</h1>
+        <Link href="/blog" style={{ display: 'inline-block', background: '#111827', color: 'white', padding: '12px 28px', borderRadius: '10px', fontWeight: 900, textDecoration: 'none' }}>Back to Blog</Link>
       </div>
     </Layout>
   );
 
   return (
     <Layout title={post.meta_title || post.title} description={post.meta_description || post.excerpt}>
-      {/* Hero */}
-      <section style={{ background: '#111827', padding: '80px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px', textAlign: 'center' }}>
-          <div style={{ fontSize: '13px', color: '#facc15', fontWeight: 700, marginBottom: '16px' }}>
+
+      <section style={{ background: '#111827' }} className="page-section">
+        <div className="page-container" style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '12px', color: '#facc15', fontWeight: 700, marginBottom: '14px' }}>
             {new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
-          <h1 style={{ fontSize: '48px', fontWeight: 900, color: 'white', margin: 0, lineHeight: 1.2 }}>{post.title}</h1>
+          <h1 style={{ fontSize: '40px', fontWeight: 900, color: 'white', margin: 0, lineHeight: 1.2, wordBreak: 'break-word' }}>{post.title}</h1>
         </div>
       </section>
 
-      {/* Content */}
-      <section style={{ background: 'white', padding: '80px 0' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ fontSize: '16px', color: '#374151', lineHeight: 1.9 }} dangerouslySetInnerHTML={{ __html: post.content }} />
-          <div style={{ marginTop: '48px', paddingTop: '32px', borderTop: '1px solid #f3f4f6' }}>
-            <Link href="/blog" style={{ color: '#d97706', fontWeight: 700, textDecoration: 'none', fontSize: '15px' }}>← Back to Blog</Link>
+      <section style={{ background: 'white' }} className="page-section">
+        <div className="narrow-container">
+          <div className="blog-content" style={{ fontSize: '16px', color: '#374151', lineHeight: 1.9 }} dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div style={{ marginTop: '40px', paddingTop: '28px', borderTop: '1px solid #f3f4f6' }}>
+            <Link href="/blog" style={{ color: '#d97706', fontWeight: 700, textDecoration: 'none', fontSize: '14px' }}>← Back to Blog</Link>
           </div>
         </div>
       </section>
+
     </Layout>
   );
 }

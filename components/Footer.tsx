@@ -20,7 +20,7 @@ export default function Footer() {
       {/* Main Footer */}
       <div style={{ background: '#0f172a', padding: '64px 0 48px 0' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px' }}>
+          <div className="grid-footer">
 
             {/* Brand Column */}
             <div>
