@@ -17,6 +17,8 @@ function generateSitemap() {
   <url><loc>${SITE_URL}/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>${SITE_URL}/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>${SITE_URL}/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>${SITE_URL}/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>${SITE_URL}/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   ${slugs.map(slug => `<url><loc>${SITE_URL}/products/${slug}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n  ')}
 </urlset>`;
 }
