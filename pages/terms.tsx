@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 export default function Terms() {
   return (
     <Layout title="Terms & Conditions — FineCustomBoxes" description="Terms and conditions for FineCustomBoxes custom packaging services.">
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-16 px-4 text-center">
+      <section className="bg-gray-900 text-white py-16 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold">Terms & Conditions</h1>
           <p className="mt-3 text-emerald-100">Last updated: June 2026</p>

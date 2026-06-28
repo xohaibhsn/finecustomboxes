@@ -144,7 +144,7 @@ export default function ProductPage() {
             <ul className="space-y-3">
               {product.features.map((f) => (
                 <li key={f} className="flex items-center gap-3 text-gray-600">
-                  <span className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span>
+                  <span className="w-5 h-5 bg-yellow-400 text-black rounded-full flex items-center justify-center text-xs font-black">✓</span>
                   {f}
                 </li>
               ))}
@@ -155,7 +155,7 @@ export default function ProductPage() {
             <ul className="space-y-3">
               {product.materials.map((m) => (
                 <li key={m} className="flex items-center gap-3 text-gray-600">
-                  <span className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">→</span>
+                  <span className="w-5 h-5 bg-gray-900 text-white rounded-full flex items-center justify-center text-xs font-black">→</span>
                   {m}
                 </li>
               ))}
