@@ -2,57 +2,56 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 
 const products = [
-  { name: 'Cardboard Boxes', icon: '📦', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products. Perfect for retail packaging.' },
-  { name: 'Mailer Boxes', icon: '📬', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping. Strong & tamper-proof.' },
-  { name: 'Kraft Boxes', icon: '🌿', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging. Biodegradable & recyclable.' },
-  { name: 'Rigid Boxes', icon: '🎁', slug: 'rigid-boxes', desc: 'Premium feel for luxury products. Ideal for gifts & high-end brands.' },
-  { name: 'Corrugated Boxes', icon: '🏭', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging. Maximum protection for fragile items.' },
-  { name: 'Display Boxes', icon: '🛍️', slug: 'display-boxes', desc: 'Retail-ready display solutions. Boost your product visibility.' },
-  { name: 'Cosmetic Boxes', icon: '💄', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging. Perfect for skincare & makeup brands.' },
-  { name: 'Food Boxes', icon: '🍕', slug: 'food-boxes', desc: 'Safe & certified food packaging. FDA compliant materials.' },
-  { name: 'Soap Boxes', icon: '🧼', slug: 'soap-boxes', desc: 'Custom printed soap packaging. Great for handmade & organic brands.' },
-  { name: 'Candle Boxes', icon: '🕯️', slug: 'candle-boxes', desc: 'Stylish candle packaging. Protect & present your candles beautifully.' },
-  { name: 'Jewelry Boxes', icon: '💍', slug: 'jewelry-boxes', desc: 'Elegant jewelry packaging. Velvet inserts & premium finishes available.' },
-  { name: 'Shipping Boxes', icon: '🚚', slug: 'shipping-boxes', desc: 'Strong shipping boxes. Safe delivery guaranteed every time.' },
+  { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products.', img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&q=80' },
+  { name: 'Mailer Boxes', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping.', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
+  { name: 'Kraft Boxes', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging.', img: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80' },
+  { name: 'Rigid Boxes', slug: 'rigid-boxes', desc: 'Premium feel for luxury products.', img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' },
+  { name: 'Corrugated Boxes', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging.', img: 'https://images.unsplash.com/photo-1595079837922-4f5e6f95b76a?w=400&q=80' },
+  { name: 'Display Boxes', slug: 'display-boxes', desc: 'Retail-ready display solutions.', img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400&q=80' },
+  { name: 'Cosmetic Boxes', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging.', img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80' },
+  { name: 'Food Boxes', slug: 'food-boxes', desc: 'Safe & certified food packaging.', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80' },
+  { name: 'Soap Boxes', slug: 'soap-boxes', desc: 'Custom printed soap packaging.', img: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400&q=80' },
+  { name: 'Candle Boxes', slug: 'candle-boxes', desc: 'Stylish candle packaging.', img: 'https://images.unsplash.com/photo-1608181831718-c9fdc0e47b71?w=400&q=80' },
+  { name: 'Jewelry Boxes', slug: 'jewelry-boxes', desc: 'Luxurious jewelry packaging.', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80' },
+  { name: 'Shipping Boxes', slug: 'shipping-boxes', desc: 'Strong shipping boxes.', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80' },
 ];
 
 export default function Products() {
   return (
-    <Layout title="Custom Packaging Products — FineCustomBoxes" description="Browse our wide range of custom packaging boxes. Cardboard, mailer, kraft, rigid, corrugated & more.">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-20 px-4 text-center">
+    <Layout title="Custom Packaging Products — FineCustomBoxes" description="Browse our wide range of custom packaging boxes.">
+      <section className="bg-gray-900 text-white py-20 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold">Our Products</h1>
-          <p className="mt-4 text-emerald-100 text-lg">Custom packaging solutions for every industry & need</p>
+          <h1 className="text-4xl md:text-5xl font-black">Our Products</h1>
+          <p className="mt-4 text-gray-400 text-lg">Custom packaging solutions for every industry & need</p>
         </div>
       </section>
 
-      {/* Products Grid */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((p) => (
               <Link key={p.slug} href={`/products/${p.slug}`}
-                className="group border border-gray-200 rounded-xl p-6 hover:border-emerald-500 hover:shadow-lg transition">
-                <div className="text-4xl mb-3">{p.icon}</div>
-                <h3 className="font-bold text-gray-800 text-lg group-hover:text-emerald-600">{p.name}</h3>
-                <p className="text-gray-500 text-sm mt-2 leading-relaxed">{p.desc}</p>
-                <span className="mt-4 inline-block text-emerald-600 text-sm font-semibold group-hover:underline">
-                  Learn More →
-                </span>
+                className="group rounded-xl overflow-hidden border border-gray-100 hover:border-yellow-400 hover:shadow-xl transition">
+                <div className="h-48 overflow-hidden">
+                  <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-black text-gray-900 group-hover:text-yellow-600">{p.name}</h3>
+                  <p className="text-gray-500 text-sm mt-1">{p.desc}</p>
+                  <span className="mt-3 inline-block text-yellow-600 text-sm font-black group-hover:underline">Learn More →</span>
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 px-4 bg-emerald-700 text-white text-center">
+      <section className="py-16 px-4 bg-yellow-400 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold">Don't See What You Need?</h2>
-          <p className="mt-3 text-emerald-100">We can manufacture any custom box style. Contact us with your requirements!</p>
-          <Link href="/quote" className="mt-6 inline-block bg-white text-emerald-700 px-8 py-3 rounded-lg font-bold hover:bg-emerald-50 transition">
-            Get Custom Quote
+          <h2 className="text-3xl font-black text-gray-900">Don't See What You Need?</h2>
+          <p className="mt-3 text-gray-800">We can manufacture any custom box style!</p>
+          <Link href="/quote" className="mt-6 inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-black hover:bg-gray-800 transition">
+            Get Custom Quote →
           </Link>
         </div>
       </section>

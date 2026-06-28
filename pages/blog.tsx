@@ -14,10 +14,10 @@ interface Post {
 export default function Blog({ posts }: { posts: Post[] }) {
   return (
     <Layout title="Blog — FineCustomBoxes" description="Packaging tips, industry news, and custom box guides from FineCustomBoxes.">
-      <section className="bg-gradient-to-br from-emerald-700 to-emerald-900 text-white py-20 px-4 text-center">
+      <section className="bg-gray-900 text-white py-20 px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold">Our Blog</h1>
-          <p className="mt-4 text-emerald-100 text-lg">Packaging tips, trends & industry insights</p>
+          <h1 className="text-4xl md:text-5xl font-black">Our Blog</h1>
+          <p className="mt-4 text-gray-400 text-lg">Packaging tips, trends & industry insights</p>
         </div>
       </section>
 
