@@ -2,18 +2,18 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 
 const products = [
-  { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products.', img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&q=80' },
-  { name: 'Mailer Boxes', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping.', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80' },
-  { name: 'Kraft Boxes', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging.', img: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=80' },
-  { name: 'Rigid Boxes', slug: 'rigid-boxes', desc: 'Premium feel for luxury products.', img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80' },
-  { name: 'Corrugated Boxes', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging.', img: 'https://images.unsplash.com/photo-1595079837922-4f5e6f95b76a?w=400&q=80' },
-  { name: 'Display Boxes', slug: 'display-boxes', desc: 'Retail-ready display solutions.', img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=400&q=80' },
-  { name: 'Cosmetic Boxes', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging.', img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80' },
-  { name: 'Food Boxes', slug: 'food-boxes', desc: 'Safe & certified food packaging.', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80' },
-  { name: 'Soap Boxes', slug: 'soap-boxes', desc: 'Custom printed soap packaging.', img: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400&q=80' },
-  { name: 'Candle Boxes', slug: 'candle-boxes', desc: 'Stylish candle packaging.', img: 'https://images.unsplash.com/photo-1608181831718-c9fdc0e47b71?w=400&q=80' },
-  { name: 'Jewelry Boxes', slug: 'jewelry-boxes', desc: 'Luxurious jewelry packaging.', img: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80' },
-  { name: 'Shipping Boxes', slug: 'shipping-boxes', desc: 'Strong shipping boxes.', img: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80' },
+  { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products.', bg: 'bg-gray-100' },
+  { name: 'Mailer Boxes', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping.', bg: 'bg-gray-100' },
+  { name: 'Kraft Boxes', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging.', bg: 'bg-amber-50' },
+  { name: 'Rigid Boxes', slug: 'rigid-boxes', desc: 'Premium feel for luxury products.', bg: 'bg-gray-100' },
+  { name: 'Corrugated Boxes', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging.', bg: 'bg-gray-100' },
+  { name: 'Display Boxes', slug: 'display-boxes', desc: 'Retail-ready display solutions.', bg: 'bg-gray-100' },
+  { name: 'Cosmetic Boxes', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging.', bg: 'bg-pink-50' },
+  { name: 'Food Boxes', slug: 'food-boxes', desc: 'Safe & certified food packaging.', bg: 'bg-orange-50' },
+  { name: 'Soap Boxes', slug: 'soap-boxes', desc: 'Custom printed soap packaging.', bg: 'bg-amber-50' },
+  { name: 'Candle Boxes', slug: 'candle-boxes', desc: 'Stylish candle packaging.', bg: 'bg-yellow-50' },
+  { name: 'Jewelry Boxes', slug: 'jewelry-boxes', desc: 'Luxurious jewelry packaging.', bg: 'bg-gray-100' },
+  { name: 'Shipping Boxes', slug: 'shipping-boxes', desc: 'Strong shipping boxes.', bg: 'bg-gray-100' },
 ];
 
 export default function Products() {
@@ -31,9 +31,13 @@ export default function Products() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((p) => (
               <Link key={p.slug} href={`/products/${p.slug}`}
-                className="group rounded-xl overflow-hidden border border-gray-100 hover:border-yellow-400 hover:shadow-xl transition">
-                <div className="h-48 overflow-hidden">
-                  <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
+                className="group rounded-xl overflow-hidden border border-gray-200 hover:border-yellow-400 hover:shadow-xl transition">
+                <div className={`h-48 ${p.bg} flex items-center justify-center border-b border-gray-100`}>
+                  <div className="w-20 h-20 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
+                    <svg className="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
                 </div>
                 <div className="p-4">
                   <h3 className="font-black text-gray-900 group-hover:text-yellow-600">{p.name}</h3>
