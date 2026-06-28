@@ -114,6 +114,21 @@ html {
   border-color: #facc15;
 }
 
+.input-field-dark {
+  background: #1f2937;
+  border: 1.5px solid #374151;
+  color: #ffffff;
+}
+
+.input-field-dark::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.input-field-dark option {
+  color: #111827;
+  background: #ffffff;
+}
+
 .upload-box {
   border: 2px dashed #d1d5db;
   border-radius: 12px;
@@ -263,7 +278,7 @@ html {
   align-items: center;
   gap: 6px;
   padding: 16px 18px;
-  color: #d1d5db;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;

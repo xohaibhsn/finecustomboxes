@@ -98,23 +98,23 @@ export default function Home() {
             {/* Quote Form */}
             <div style={{ background: '#111827', borderRadius: '20px', padding: '32px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)' }}>
               <h2 style={{ color: 'white', fontWeight: 900, fontSize: '20px', margin: '0 0 6px 0' }}>Get a Free Quote</h2>
-              <p style={{ color: '#9ca3af', fontSize: '13px', margin: '0 0 20px 0' }}>Response within 24 hours — no hidden fees!</p>
+              <p style={{ color: '#ffffff', fontSize: '13px', margin: '0 0 20px 0' }}>Response within 24 hours — no hidden fees!</p>
               {quoteStatus === 'success' ? (
                 <div style={{ textAlign: 'center', padding: '32px 0' }}>
                   <div style={{ fontSize: '40px', marginBottom: '10px' }}>🎉</div>
                   <h3 style={{ color: '#facc15', fontWeight: 900, fontSize: '18px', margin: '0 0 8px 0' }}>Quote Received!</h3>
-                  <p style={{ color: '#9ca3af', margin: 0, fontSize: '14px' }}>We'll get back to you within 24 hours.</p>
+                  <p style={{ color: '#ffffff', margin: 0, fontSize: '14px' }}>We'll get back to you within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handleQuoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <input type="text" placeholder="Your Name *" required value={quoteForm.name} onChange={e => setQuoteForm({ ...quoteForm, name: e.target.value })} className="input-field" style={{ background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
-                  <input type="email" placeholder="Email Address *" required value={quoteForm.email} onChange={e => setQuoteForm({ ...quoteForm, email: e.target.value })} className="input-field" style={{ background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
-                  <input type="text" placeholder="Phone Number" value={quoteForm.phone} onChange={e => setQuoteForm({ ...quoteForm, phone: e.target.value })} className="input-field" style={{ background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
-                  <select required value={quoteForm.boxType} onChange={e => setQuoteForm({ ...quoteForm, boxType: e.target.value })} className="input-field" style={{ background: '#1f2937', border: '1.5px solid #374151', color: quoteForm.boxType ? 'white' : '#9ca3af' }}>
+                  <input type="text" placeholder="Your Name *" required value={quoteForm.name} onChange={e => setQuoteForm({ ...quoteForm, name: e.target.value })} className="input-field input-field-dark" />
+                  <input type="email" placeholder="Email Address *" required value={quoteForm.email} onChange={e => setQuoteForm({ ...quoteForm, email: e.target.value })} className="input-field input-field-dark" />
+                  <input type="text" placeholder="Phone Number" value={quoteForm.phone} onChange={e => setQuoteForm({ ...quoteForm, phone: e.target.value })} className="input-field input-field-dark" />
+                  <select required value={quoteForm.boxType} onChange={e => setQuoteForm({ ...quoteForm, boxType: e.target.value })} className="input-field input-field-dark">
                     <option value="">Select Box Type *</option>
                     {['Cardboard Boxes', 'Mailer Boxes', 'Kraft Boxes', 'Rigid Boxes', 'Corrugated Boxes', 'Display Boxes', 'Cosmetic Boxes', 'Food Boxes', 'Other'].map(b => <option key={b} value={b}>{b}</option>)}
                   </select>
-                  <input type="text" placeholder="Quantity (e.g. 500)" value={quoteForm.quantity} onChange={e => setQuoteForm({ ...quoteForm, quantity: e.target.value })} className="input-field" style={{ background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
+                  <input type="text" placeholder="Quantity (e.g. 500)" value={quoteForm.quantity} onChange={e => setQuoteForm({ ...quoteForm, quantity: e.target.value })} className="input-field input-field-dark" />
                   {quoteStatus === 'error' && <p style={{ color: '#f87171', fontSize: '13px', margin: 0 }}>Something went wrong. Try again!</p>}
                   <button type="submit" disabled={quoteStatus === 'sending'} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '14px', borderRadius: '10px', fontWeight: 900, fontSize: '15px', cursor: 'pointer', marginTop: '4px' }}>
                     {quoteStatus === 'sending' ? 'Sending...' : '🚀 Get Free Quote Now'}
@@ -144,7 +144,7 @@ export default function Home() {
             {[{ num: '5,000+', label: 'Happy Clients' }, { num: '50+', label: 'Box Styles' }, { num: '7 Days', label: 'Avg Turnaround' }, { num: '100%', label: 'Satisfaction Rate' }].map(s => (
               <div key={s.label} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '36px', fontWeight: 900, color: '#facc15' }}>{s.num}</div>
-                <div style={{ fontSize: '13px', color: '#9ca3af', marginTop: '6px' }}>{s.label}</div>
+                <div style={{ fontSize: '13px', color: '#ffffff', marginTop: '6px' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -231,10 +231,10 @@ export default function Home() {
           <div className="grid-2-wide" style={{ alignItems: 'center' }}>
             <div style={{ color: 'white' }}>
               <h2 className="cta-title" style={{ color: 'white' }}>Ready to Order <span style={{ color: '#facc15' }}>Custom Boxes?</span></h2>
-              <p style={{ color: '#9ca3af', fontSize: '16px', margin: '0 0 24px 0', lineHeight: 1.7 }}>Get a free quote in minutes. No hidden fees. Free design & free shipping included.</p>
+              <p style={{ color: '#ffffff', fontSize: '16px', margin: '0 0 24px 0', lineHeight: 1.7 }}>Get a free quote in minutes. No hidden fees. Free design & free shipping included.</p>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {['Free design consultation', 'No die or plate charges', 'Ships anywhere in the USA', '100% satisfaction guarantee'].map(i => (
-                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#d1d5db', fontSize: '14px' }}>
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ffffff', fontSize: '14px' }}>
                     <span style={{ color: '#facc15', fontWeight: 900 }}>✓</span>{i}
                   </li>
                 ))}

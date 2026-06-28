@@ -117,7 +117,7 @@ export default function Admin() {
           <div style={{ width: '40px', height: '40px', background: '#facc15', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '18px', color: '#111827', flexShrink: 0 }}>F</div>
           <div>
             <div style={{ fontWeight: 900, fontSize: '14px', color: 'white' }}>FineCustomBoxes</div>
-            <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px' }}>Admin Dashboard</div>
+            <div style={{ fontSize: '11px', color: '#ffffff', marginTop: '2px' }}>Admin Dashboard</div>
           </div>
         </div>
 
@@ -129,11 +129,11 @@ export default function Admin() {
                 width: '100%', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px',
                 borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600,
                 background: tab === item.key ? '#facc15' : 'transparent',
-                color: tab === item.key ? '#111827' : '#9ca3af',
+                color: tab === item.key ? '#111827' : '#ffffff',
                 transition: 'all 0.15s',
               }}
               onMouseEnter={e => { if (tab !== item.key) { (e.currentTarget as HTMLButtonElement).style.background = '#1f2937'; (e.currentTarget as HTMLButtonElement).style.color = 'white'; } }}
-              onMouseLeave={e => { if (tab !== item.key) { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#9ca3af'; } }}
+              onMouseLeave={e => { if (tab !== item.key) { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#ffffff'; } }}
             >
               <span style={{ fontSize: '18px' }}>{item.icon}</span>
               <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
@@ -145,9 +145,9 @@ export default function Admin() {
 
         {/* Logout */}
         <div style={{ padding: '12px', borderTop: '1px solid #1f2937' }}>
-          <button onClick={logout} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600, background: 'transparent', color: '#6b7280' }}
+          <button onClick={logout} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '14px', fontWeight: 600, background: 'transparent', color: '#ffffff' }}
             onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#1f2937'; (e.currentTarget as HTMLButtonElement).style.color = 'white'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#6b7280'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; (e.currentTarget as HTMLButtonElement).style.color = '#ffffff'; }}
           >
             <span>🚪</span> Logout
           </button>

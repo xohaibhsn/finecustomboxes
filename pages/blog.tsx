@@ -12,7 +12,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
       <section style={{ background: '#111827' }} className="page-section">
         <div className="page-container" style={{ textAlign: 'center' }}>
           <h1 className="page-title">Our Blog</h1>
-          <p style={{ fontSize: '17px', color: '#9ca3af', margin: 0 }}>Packaging tips, trends & industry insights</p>
+          <p style={{ fontSize: '17px', color: '#ffffff', margin: 0 }}>Packaging tips, trends & industry insights</p>
         </div>
       </section>
 

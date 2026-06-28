@@ -21,7 +21,7 @@ export default function Quote() {
       <section style={{ background: '#111827' }} className="page-section">
         <div className="page-container" style={{ textAlign: 'center' }}>
           <h1 className="page-title">Get a Free Quote</h1>
-          <p style={{ fontSize: '17px', color: '#9ca3af', margin: 0 }}>Fill out the form and we'll get back to you within 24 hours</p>
+          <p style={{ fontSize: '17px', color: '#ffffff', margin: 0 }}>Fill out the form and we'll get back to you within 24 hours</p>
         </div>
       </section>
 

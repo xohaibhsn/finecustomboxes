@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
       <section style={{ background: '#111827' }} className="page-section">
         <div className="page-container" style={{ textAlign: 'center' }}>
           <h1 className="page-title">Privacy Policy</h1>
-          <p style={{ color: '#9ca3af', fontSize: '15px', margin: 0 }}>Last updated: June 2026</p>
+          <p style={{ color: '#ffffff', fontSize: '15px', margin: 0 }}>Last updated: June 2026</p>
         </div>
       </section>
       <section style={{ background: 'white' }} className="page-section">

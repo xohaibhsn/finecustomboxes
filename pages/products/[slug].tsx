@@ -43,7 +43,7 @@ export default function ProductPage() {
             </div>
             <div style={{ flex: 1, minWidth: '200px' }}>
               <h1 className="page-title">{product.name}</h1>
-              <p style={{ fontSize: '16px', color: '#9ca3af', margin: '0 0 20px 0', lineHeight: 1.7 }}>{product.desc}</p>
+              <p style={{ fontSize: '16px', color: '#ffffff', margin: '0 0 20px 0', lineHeight: 1.7 }}>{product.desc}</p>
               <Link href="/quote" style={{ display: 'inline-block', background: '#facc15', color: '#111827', padding: '12px 28px', borderRadius: '10px', fontWeight: 900, textDecoration: 'none', fontSize: '14px' }}>
                 Get Free Quote →
               </Link>

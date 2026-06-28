@@ -23,7 +23,7 @@ export default function Products() {
       <section style={{ background: '#111827' }} className="page-section">
         <div className="page-container" style={{ textAlign: 'center' }}>
           <h1 className="page-title">Our Products</h1>
-          <p style={{ fontSize: '17px', color: '#9ca3af', margin: 0 }}>Custom packaging solutions for every industry & need</p>
+          <p style={{ fontSize: '17px', color: '#ffffff', margin: 0 }}>Custom packaging solutions for every industry & need</p>
         </div>
       </section>
 
