@@ -1,4 +1,4 @@
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import pool from '../../lib/db';
