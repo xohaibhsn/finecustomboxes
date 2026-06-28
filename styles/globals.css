@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-black: #1a1a1a;
+  --color-brand-dark: #111827;
+  --color-brand-yellow: #f5c518;
+  --color-brand-gold: #eab308;
+  --color-brand-red: #dc2626;
+  --color-brand-gray: #f9fafb;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +18,7 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: #ffffff;
-  color: #1a1a2e;
+  color: #1a1a1a;
 }
 
 html {
