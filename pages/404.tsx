@@ -4,16 +4,16 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <Layout title="404 — Page Not Found | FineCustomBoxes">
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <div className="text-8xl font-black text-yellow-400 mb-4">404</div>
-          <div className="text-6xl mb-6">📦</div>
-          <h1 className="text-3xl font-black text-gray-900 mb-3">Page Not Found</h1>
-          <p className="text-gray-500 text-lg mb-8">Oops! The page you're looking for doesn't exist or has been moved.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/" className="bg-gray-900 text-white px-8 py-3 rounded-lg font-black hover:bg-gray-800 transition">Go Home</Link>
-            <Link href="/products" className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-black hover:bg-yellow-500 transition">View Products</Link>
-            <Link href="/quote" className="border-2 border-gray-300 text-gray-600 px-8 py-3 rounded-lg font-black hover:bg-gray-100 transition">Get a Quote</Link>
+      <div style={{ minHeight: '80vh', background: '#f9fafb', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 48px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '500px' }}>
+          <div style={{ fontSize: '80px', fontWeight: 900, color: '#facc15', lineHeight: 1, marginBottom: '8px' }}>404</div>
+          <div style={{ fontSize: '64px', marginBottom: '24px' }}>📦</div>
+          <h1 style={{ fontSize: '28px', fontWeight: 900, color: '#111827', margin: '0 0 12px 0' }}>Page Not Found</h1>
+          <p style={{ color: '#6b7280', fontSize: '16px', margin: '0 0 32px 0', lineHeight: 1.7 }}>Oops! The page you're looking for doesn't exist or has been moved.</p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/" style={{ display: 'inline-block', background: '#111827', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: 900, textDecoration: 'none', fontSize: '15px' }}>Go Home</Link>
+            <Link href="/products" style={{ display: 'inline-block', background: '#facc15', color: '#111827', padding: '14px 28px', borderRadius: '12px', fontWeight: 900, textDecoration: 'none', fontSize: '15px' }}>View Products</Link>
+            <Link href="/quote" style={{ display: 'inline-block', background: 'white', color: '#111827', padding: '14px 28px', borderRadius: '12px', fontWeight: 900, textDecoration: 'none', fontSize: '15px', border: '2px solid #e5e7eb' }}>Get a Quote</Link>
           </div>
         </div>
       </div>

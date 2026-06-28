@@ -1,79 +1,80 @@
 import Layout from '../components/Layout';
 import { useState } from 'react';
+import { useSettings } from '../hooks/useSettings';
 
 export default function Contact() {
+  const { settings } = useSettings();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [status, setStatus] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
+    const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
     if (res.ok) { setStatus('success'); setForm({ name: '', email: '', phone: '', message: '' }); }
     else setStatus('error');
   };
 
+  const inputStyle = { width: '100%', border: '1.5px solid #e5e7eb', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const, fontFamily: 'inherit' };
+
   return (
     <Layout title="Contact Us — FineCustomBoxes" description="Get in touch with FineCustomBoxes for custom packaging inquiries.">
-      <section className="bg-gray-900 text-white py-20 px-4 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-black">Contact Us</h1>
-          <p className="mt-4 text-gray-400 text-lg">We'd love to hear from you. Send us a message!</p>
+      {/* Hero */}
+      <section style={{ background: '#111827', padding: '80px 0' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px', textAlign: 'center' }}>
+          <h1 style={{ fontSize: '52px', fontWeight: 900, color: 'white', margin: '0 0 16px 0' }}>Contact Us</h1>
+          <p style={{ fontSize: '18px', color: '#9ca3af', margin: 0 }}>We'd love to hear from you. Send us a message!</p>
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-2xl font-black text-gray-900 mb-6">Get In Touch</h2>
-            <div className="space-y-4">
-              {[
-                { icon: '📧', label: 'Email', val: 'info@finecustomboxes.com' },
-                { icon: '📞', label: 'Phone', val: '+1 (555) 000-0000' },
-                { icon: '📍', label: 'Location', val: 'United States' },
-                { icon: '🕐', label: 'Hours', val: 'Mon–Fri, 9am–6pm EST' },
-              ].map((i) => (
-                <div key={i.label} className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center text-lg flex-shrink-0">{i.icon}</div>
-                  <div>
-                    <div className="font-black text-gray-900">{i.label}</div>
-                    <div className="text-gray-500">{i.val}</div>
+      {/* Content */}
+      <section style={{ background: 'white', padding: '80px 0' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 48px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px' }}>
+            {/* Info */}
+            <div>
+              <h2 style={{ fontSize: '28px', fontWeight: 900, color: '#111827', margin: '0 0 32px 0' }}>Get In Touch</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
+                {[
+                  { icon: '📞', label: 'Phone', val: settings.phone || '+1 (555) 000-0000', href: `tel:${settings.phone}` },
+                  { icon: '📧', label: 'Email', val: settings.email || 'info@finecustomboxes.com', href: `mailto:${settings.email}` },
+                  { icon: '📍', label: 'Location', val: settings.address || 'United States', href: null },
+                  { icon: '🕐', label: 'Hours', val: 'Mon–Fri, 9am–6pm EST', href: null },
+                ].map(i => (
+                  <div key={i.label} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div style={{ width: '44px', height: '44px', background: '#facc15', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>{i.icon}</div>
+                    <div>
+                      <div style={{ fontWeight: 900, color: '#111827', fontSize: '14px', marginBottom: '4px' }}>{i.label}</div>
+                      {i.href ? (
+                        <a href={i.href} style={{ color: '#6b7280', fontSize: '15px', textDecoration: 'none' }}>{i.val}</a>
+                      ) : (
+                        <div style={{ color: '#6b7280', fontSize: '15px' }}>{i.val}</div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <a href={`https://wa.me/${settings.whatsapp || '15550000000'}`} target="_blank" rel="noopener noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#16a34a', color: 'white', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 700, textDecoration: 'none' }}>
+                💬 Chat on WhatsApp
+              </a>
             </div>
-            <a href="https://wa.me/15550000000" target="_blank" rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-lg font-black hover:bg-green-600 transition">
-              💬 Chat on WhatsApp
-            </a>
-          </div>
 
-          <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
-            <h2 className="text-2xl font-black text-gray-900 mb-6">Send a Message</h2>
-            {status === 'success' && <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-lg mb-4 font-semibold">✅ Message sent! We'll get back to you soon.</div>}
-            {status === 'error' && <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-4 font-semibold">❌ Something went wrong. Please try again.</div>}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" placeholder="Your Name" required value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400" />
-              <input type="email" placeholder="Email Address" required value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400" />
-              <input type="text" placeholder="Phone Number" value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400" />
-              <textarea placeholder="Your Message" rows={4} required value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-yellow-400" />
-              <button type="submit" disabled={status === 'sending'}
-                className="w-full bg-red-600 text-white py-3 rounded-lg font-black hover:bg-red-700 transition disabled:opacity-50">
-                {status === 'sending' ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
+            {/* Form */}
+            <div style={{ background: '#f9fafb', borderRadius: '20px', padding: '40px', border: '1px solid #f3f4f6' }}>
+              <h2 style={{ fontSize: '24px', fontWeight: 900, color: '#111827', margin: '0 0 24px 0' }}>Send a Message</h2>
+              {status === 'success' && <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', color: '#15803d', padding: '14px 16px', borderRadius: '10px', marginBottom: '20px', fontWeight: 600, fontSize: '14px' }}>✅ Message sent! We'll get back to you soon.</div>}
+              {status === 'error' && <div style={{ background: '#fef2f2', border: '1px solid #fecaca', color: '#dc2626', padding: '14px 16px', borderRadius: '10px', marginBottom: '20px', fontWeight: 600, fontSize: '14px' }}>❌ Something went wrong. Please try again.</div>}
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <input type="text" placeholder="Your Name *" required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} style={inputStyle} />
+                <input type="email" placeholder="Email Address *" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} style={inputStyle} />
+                <input type="text" placeholder="Phone Number" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} style={inputStyle} />
+                <textarea placeholder="Your Message *" rows={5} required value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} style={{ ...inputStyle, resize: 'vertical' }} />
+                <button type="submit" disabled={status === 'sending'} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '14px', borderRadius: '10px', fontWeight: 900, fontSize: '16px', cursor: 'pointer' }}>
+                  {status === 'sending' ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
