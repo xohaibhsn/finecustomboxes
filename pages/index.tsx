@@ -1,17 +1,17 @@
-import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useState } from 'react';
+import Layout from '../components/Layout';
 import { useSettings } from '../hooks/useSettings';
 
 const categories = [
-  { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products', bg: 'bg-gray-100' },
-  { name: 'Mailer Boxes', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping', bg: 'bg-gray-100' },
-  { name: 'Kraft Boxes', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging', bg: 'bg-amber-50' },
-  { name: 'Rigid Boxes', slug: 'rigid-boxes', desc: 'Premium feel for luxury products', bg: 'bg-gray-100' },
-  { name: 'Corrugated Boxes', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging', bg: 'bg-gray-100' },
-  { name: 'Display Boxes', slug: 'display-boxes', desc: 'Retail-ready display solutions', bg: 'bg-gray-100' },
-  { name: 'Cosmetic Boxes', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging', bg: 'bg-pink-50' },
-  { name: 'Food Boxes', slug: 'food-boxes', desc: 'Safe & certified food packaging', bg: 'bg-orange-50' },
+  { name: 'Cardboard Boxes', slug: 'cardboard-boxes', desc: 'Lightweight & durable for all products', bg: '#f3f4f6' },
+  { name: 'Mailer Boxes', slug: 'mailer-boxes', desc: 'Perfect for eCommerce shipping', bg: '#f3f4f6' },
+  { name: 'Kraft Boxes', slug: 'kraft-boxes', desc: 'Eco-friendly natural packaging', bg: '#fefce8' },
+  { name: 'Rigid Boxes', slug: 'rigid-boxes', desc: 'Premium feel for luxury products', bg: '#f3f4f6' },
+  { name: 'Corrugated Boxes', slug: 'corrugated-boxes', desc: 'Heavy duty industrial packaging', bg: '#f3f4f6' },
+  { name: 'Display Boxes', slug: 'display-boxes', desc: 'Retail-ready display solutions', bg: '#f3f4f6' },
+  { name: 'Cosmetic Boxes', slug: 'cosmetic-boxes', desc: 'Elegant beauty packaging', bg: '#fdf2f8' },
+  { name: 'Food Boxes', slug: 'food-boxes', desc: 'Safe & certified food packaging', bg: '#fff7ed' },
 ];
 
 const features = [
@@ -47,7 +47,13 @@ const faqs = [
   { q: 'Can I get a sample before ordering?', a: 'Absolutely! We offer free digital mockups and physical samples are available for a small fee.' },
 ];
 
-const clientLogos = ['Amazon', 'Walmart', 'Target', 'Shopify', 'Etsy', 'eBay'];
+const S = {
+  section: { width: '100%', padding: '80px 0' },
+  container: { maxWidth: '1280px', margin: '0 auto', padding: '0 48px' },
+  sectionTitle: { textAlign: 'center' as const, marginBottom: '48px' },
+  h2: { fontSize: '36px', fontWeight: 900, color: '#111827', margin: 0 },
+  subtitle: { fontSize: '18px', color: '#6b7280', marginTop: '12px', margin: '12px 0 0 0' },
+};
 
 export default function Home() {
   const { settings } = useSettings();
@@ -58,173 +64,130 @@ export default function Home() {
   const handleQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setQuoteStatus('sending');
-    const res = await fetch('/api/quote', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...quoteForm, boxType: quoteForm.boxType, message: '' }),
-    });
+    const res = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...quoteForm, message: '' }) });
     if (res.ok) { setQuoteStatus('success'); setQuoteForm({ name: '', email: '', phone: '', boxType: '', quantity: '' }); }
     else setQuoteStatus('error');
   };
 
+  const inputStyle = { width: '100%', border: '1.5px solid #e5e7eb', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const, fontFamily: 'inherit' };
+
   return (
-    <Layout
-      title="Custom Packaging Boxes USA — Free Design & Shipping | FineCustomBoxes"
-      description="Order custom packaging boxes with logo at wholesale prices. Free design, free shipping, 50 box minimum. Trusted by 5,000+ USA businesses. Get a free quote today!"
-    >
-      {/* Hero — White BG, Text Left, Form Right */}
-      <section className="py-16 px-4 border-b border-gray-100"
-        style={settings.hero_image_url ? {
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url(${settings.hero_image_url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        } : { backgroundColor: '#ffffff' }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
-          <div>
-            <div className="inline-block bg-yellow-400 text-black text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-4">
-              #1 Custom Packaging USA
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-              {settings.hero_title}
-            </h1>
-            <p className="text-gray-600 text-lg mt-4 leading-relaxed">
-              {settings.hero_subtitle}
-            </p>
+    <Layout title="Custom Packaging Boxes USA — Free Design & Shipping | FineCustomBoxes" description="Order custom packaging boxes with logo at wholesale prices. Free design, free shipping, 50 box minimum. Trusted by 5,000+ USA businesses.">
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 gap-3 mt-6">
-              {[
-                '✅ Free Design Included',
-                '🚚 Free USA Shipping',
-                '📦 50 Box Minimum',
-                '⚡ 7-Day Production',
-              ].map((b) => (
-                <div key={b} className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700">{b}</div>
-              ))}
-            </div>
-
-            {/* Review Badges */}
-            <div className="flex items-center gap-4 mt-6">
-              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-                <span className="text-yellow-400 text-sm">★★★★★</span>
-                <span className="text-xs font-bold text-gray-700">5.0 Google Reviews</span>
+      {/* Hero */}
+      <section style={{ background: 'white', borderBottom: '1px solid #f3f4f6', padding: '80px 0' }}>
+        <div style={S.container}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+            {/* Left */}
+            <div>
+              <div style={{ display: 'inline-block', background: '#facc15', color: '#111827', fontSize: '11px', fontWeight: 900, padding: '6px 16px', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '20px' }}>
+                #1 Custom Packaging USA
               </div>
-              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-                <span className="text-green-600 text-sm font-black">✓</span>
-                <span className="text-xs font-bold text-gray-700">BBB Accredited</span>
+              <h1 style={{ fontSize: '52px', fontWeight: 900, color: '#111827', lineHeight: 1.1, margin: '0 0 16px 0' }}>
+                {settings.hero_title || 'Custom Packaging Your Customers Will Love'}
+              </h1>
+              <p style={{ fontSize: '18px', color: '#6b7280', lineHeight: 1.7, margin: '0 0 32px 0' }}>
+                {settings.hero_subtitle || 'High-quality custom boxes with free design, free shipping, and low minimums. Trusted by 5,000+ businesses across the United States.'}
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '24px' }}>
+                {['✅ Free Design Included', '🚚 Free USA Shipping', '📦 50 Box Minimum', '⚡ 7-Day Production'].map(b => (
+                  <div key={b} style={{ background: '#f9fafb', border: '1.5px solid #e5e7eb', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', fontWeight: 700, color: '#374151' }}>{b}</div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f9fafb', border: '1.5px solid #e5e7eb', borderRadius: '10px', padding: '10px 16px' }}>
+                  <span style={{ color: '#facc15' }}>★★★★★</span>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#374151' }}>5.0 Google Reviews</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f9fafb', border: '1.5px solid #e5e7eb', borderRadius: '10px', padding: '10px 16px' }}>
+                  <span style={{ color: '#16a34a', fontWeight: 900 }}>✓</span>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#374151' }}>BBB Accredited</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Right — Quote Form */}
-          <div className="bg-gray-900 rounded-2xl p-6 text-white shadow-2xl">
-            <h2 className="text-xl font-black mb-1">Get a Free Quote</h2>
-            <p className="text-gray-400 text-sm mb-4">Response within 24 hours — no hidden fees!</p>
-            {quoteStatus === 'success' ? (
-              <div className="text-center py-8">
-                <div className="text-5xl mb-3">🎉</div>
-                <h3 className="text-xl font-black text-yellow-400">Quote Received!</h3>
-                <p className="text-gray-400 mt-2">We'll get back to you within 24 hours.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleQuoteSubmit} className="space-y-3">
-                <input type="text" placeholder="Your Name *" required
-                  value={quoteForm.name} onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400" />
-                <input type="email" placeholder="Email Address *" required
-                  value={quoteForm.email} onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400" />
-                <input type="text" placeholder="Phone Number"
-                  value={quoteForm.phone} onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400" />
-                <select required value={quoteForm.boxType} onChange={(e) => setQuoteForm({ ...quoteForm, boxType: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-yellow-400">
-                  <option value="">Select Box Type *</option>
-                  {['Cardboard Boxes','Mailer Boxes','Kraft Boxes','Rigid Boxes','Corrugated Boxes','Display Boxes','Cosmetic Boxes','Food Boxes','Other'].map(b => (
-                    <option key={b} value={b}>{b}</option>
-                  ))}
-                </select>
-                <input type="text" placeholder="Quantity (e.g. 500)"
-                  value={quoteForm.quantity} onChange={(e) => setQuoteForm({ ...quoteForm, quantity: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400" />
-                {quoteStatus === 'error' && <p className="text-red-400 text-sm">Something went wrong. Try again!</p>}
-                <button type="submit" disabled={quoteStatus === 'sending'}
-                  className="w-full bg-red-600 text-white py-3 rounded-lg font-black hover:bg-red-700 transition disabled:opacity-50">
-                  {quoteStatus === 'sending' ? 'Sending...' : '🚀 Get Free Quote Now'}
-                </button>
-              </form>
-            )}
+            {/* Right — Quote Form */}
+            <div style={{ background: '#111827', borderRadius: '20px', padding: '36px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)' }}>
+              <h2 style={{ color: 'white', fontWeight: 900, fontSize: '22px', margin: '0 0 6px 0' }}>Get a Free Quote</h2>
+              <p style={{ color: '#9ca3af', fontSize: '14px', margin: '0 0 24px 0' }}>Response within 24 hours — no hidden fees!</p>
+              {quoteStatus === 'success' ? (
+                <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
+                  <h3 style={{ color: '#facc15', fontWeight: 900, fontSize: '20px', margin: '0 0 8px 0' }}>Quote Received!</h3>
+                  <p style={{ color: '#9ca3af', margin: 0 }}>We'll get back to you within 24 hours.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleQuoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <input type="text" placeholder="Your Name *" required value={quoteForm.name} onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })} style={{ ...inputStyle, background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
+                  <input type="email" placeholder="Email Address *" required value={quoteForm.email} onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })} style={{ ...inputStyle, background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
+                  <input type="text" placeholder="Phone Number" value={quoteForm.phone} onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })} style={{ ...inputStyle, background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
+                  <select required value={quoteForm.boxType} onChange={(e) => setQuoteForm({ ...quoteForm, boxType: e.target.value })} style={{ ...inputStyle, background: '#1f2937', border: '1.5px solid #374151', color: quoteForm.boxType ? 'white' : '#9ca3af' }}>
+                    <option value="">Select Box Type *</option>
+                    {['Cardboard Boxes', 'Mailer Boxes', 'Kraft Boxes', 'Rigid Boxes', 'Corrugated Boxes', 'Display Boxes', 'Cosmetic Boxes', 'Food Boxes', 'Other'].map(b => <option key={b} value={b}>{b}</option>)}
+                  </select>
+                  <input type="text" placeholder="Quantity (e.g. 500)" value={quoteForm.quantity} onChange={(e) => setQuoteForm({ ...quoteForm, quantity: e.target.value })} style={{ ...inputStyle, background: '#1f2937', border: '1.5px solid #374151', color: 'white' }} />
+                  {quoteStatus === 'error' && <p style={{ color: '#f87171', fontSize: '13px', margin: 0 }}>Something went wrong. Try again!</p>}
+                  <button type="submit" disabled={quoteStatus === 'sending'} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '14px', borderRadius: '10px', fontWeight: 900, fontSize: '16px', cursor: 'pointer', marginTop: '4px' }}>
+                    {quoteStatus === 'sending' ? 'Sending...' : '🚀 Get Free Quote Now'}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Trust Strip */}
-      <section className="bg-yellow-400 py-3 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-6 text-black text-sm font-black">
-          {['🚚 Free USA Shipping', '🎨 Free Design Service', '📦 50 Box Minimum', '⚡ 7-Day Turnaround', '✅ 100% Satisfaction', '🌿 Eco-Friendly Options'].map((t) => (
-            <span key={t}>{t}</span>
-          ))}
-        </div>
-      </section>
-
-      {/* Client Logos */}
-      <section className="bg-gray-50 py-8 px-4 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-xs font-black text-gray-400 uppercase tracking-wider mb-6">Trusted By Leading Brands</p>
-          <div className="flex flex-wrap justify-center gap-8 items-center">
-            {clientLogos.map((logo) => (
-              <div key={logo} className="text-gray-300 font-black text-xl tracking-tight">{logo}</div>
+      <section style={{ background: '#facc15', padding: '16px 0' }}>
+        <div style={S.container}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px' }}>
+            {['🚚 Free USA Shipping', '🎨 Free Design Service', '📦 50 Box Minimum', '⚡ 7-Day Turnaround', '✅ 100% Satisfaction', '🌿 Eco-Friendly'].map(t => (
+              <span key={t} style={{ fontSize: '14px', fontWeight: 900, color: '#111827' }}>{t}</span>
             ))}
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="bg-gray-900 text-white py-10">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            { num: '5,000+', label: 'Happy Clients' },
-            { num: '50+', label: 'Box Styles' },
-            { num: '7 Days', label: 'Avg Turnaround' },
-            { num: '100%', label: 'Satisfaction Rate' },
-          ].map((s) => (
-            <div key={s.label}>
-              <div className="text-3xl font-black text-yellow-400">{s.num}</div>
-              <div className="text-gray-400 mt-1 text-sm">{s.label}</div>
-            </div>
-          ))}
+      <section style={{ background: '#111827', padding: '48px 0' }}>
+        <div style={S.container}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px', textAlign: 'center' }}>
+            {[{ num: '5,000+', label: 'Happy Clients' }, { num: '50+', label: 'Box Styles' }, { num: '7 Days', label: 'Avg Turnaround' }, { num: '100%', label: 'Satisfaction Rate' }].map(s => (
+              <div key={s.label}>
+                <div style={{ fontSize: '40px', fontWeight: 900, color: '#facc15' }}>{s.num}</div>
+                <div style={{ fontSize: '14px', color: '#9ca3af', marginTop: '6px' }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Categories — Photo Cards */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Our Packaging Solutions</h2>
-            <p className="text-gray-500 mt-3 text-lg">Choose from our wide range of custom box styles</p>
+      {/* Categories */}
+      <section style={{ ...S.section, background: 'white' }}>
+        <div style={S.container}>
+          <div style={S.sectionTitle}>
+            <h2 style={S.h2}>Our Packaging Solutions</h2>
+            <p style={S.subtitle}>Choose from our wide range of custom box styles</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {categories.map((cat) => (
-              <Link key={cat.slug} href={`/products/${cat.slug}`}
-                className="group rounded-xl overflow-hidden border border-gray-200 hover:border-yellow-400 hover:shadow-xl transition">
-                {/* Image Placeholder */}
-                <div className={`h-40 ${cat.bg} flex items-center justify-center border-b border-gray-100`}>
-                  <div className="w-16 h-16 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center">
-                    <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            {categories.map(cat => (
+              <Link key={cat.slug} href={`/products/${cat.slug}`} style={{ textDecoration: 'none', borderRadius: '16px', overflow: 'hidden', border: '1.5px solid #e5e7eb', transition: 'all 0.2s', display: 'block' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#facc15'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none'; }}>
+                <div style={{ height: '160px', background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #f3f4f6' }}>
+                  <div style={{ width: '64px', height: '64px', border: '2px dashed #d1d5db', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="28" height="28" fill="none" stroke="#d1d5db" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                   </div>
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-black text-gray-900 group-hover:text-yellow-600 text-sm">{cat.name}</h3>
-                  <p className="text-gray-500 text-xs mt-1">{cat.desc}</p>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                  <h3 style={{ fontWeight: 900, color: '#111827', fontSize: '15px', margin: '0 0 6px 0' }}>{cat.name}</h3>
+                  <p style={{ color: '#9ca3af', fontSize: '13px', margin: 0 }}>{cat.desc}</p>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="text-center mt-10">
-            <Link href="/products" className="bg-gray-900 text-white px-8 py-3 rounded-lg font-black hover:bg-gray-800 transition">
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <Link href="/products" style={{ display: 'inline-block', background: '#111827', color: 'white', padding: '14px 36px', borderRadius: '12px', fontWeight: 900, textDecoration: 'none', fontSize: '15px' }}>
               View All Products →
             </Link>
           </div>
@@ -232,18 +195,20 @@ export default function Home() {
       </section>
 
       {/* Premium Finishes */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Premium Finishes</h2>
-            <p className="text-gray-500 mt-3 text-lg">Elevate your packaging with our luxury finishing options</p>
+      <section style={{ ...S.section, background: '#f9fafb' }}>
+        <div style={S.container}>
+          <div style={S.sectionTitle}>
+            <h2 style={S.h2}>Premium Finishes</h2>
+            <p style={S.subtitle}>Elevate your packaging with our luxury finishing options</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {finishes.map((f) => (
-              <div key={f.name} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center hover:border-yellow-400 hover:shadow-md transition">
-                <div className="text-4xl mb-3">{f.icon}</div>
-                <h3 className="font-black text-gray-900">{f.name}</h3>
-                <p className="text-gray-500 text-sm mt-2">{f.desc}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+            {finishes.map(f => (
+              <div key={f.name} style={{ background: 'white', borderRadius: '16px', padding: '28px', border: '1.5px solid #e5e7eb', textAlign: 'center', transition: 'all 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#facc15'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}>
+                <div style={{ fontSize: '36px', marginBottom: '12px' }}>{f.icon}</div>
+                <h3 style={{ fontWeight: 900, color: '#111827', fontSize: '16px', margin: '0 0 8px 0' }}>{f.name}</h3>
+                <p style={{ color: '#9ca3af', fontSize: '14px', margin: 0 }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -251,18 +216,20 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Why Choose FineCustomBoxes?</h2>
-            <p className="text-gray-500 mt-3 text-lg">We make custom packaging easy, affordable & fast</p>
+      <section style={{ ...S.section, background: 'white' }}>
+        <div style={S.container}>
+          <div style={S.sectionTitle}>
+            <h2 style={S.h2}>Why Choose FineCustomBoxes?</h2>
+            <p style={S.subtitle}>We make custom packaging easy, affordable & fast</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((f) => (
-              <div key={f.title} className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:border-yellow-400 transition">
-                <div className="w-12 h-12 bg-yellow-400 rounded-xl flex items-center justify-center text-2xl mb-4">{f.icon}</div>
-                <h3 className="font-black text-gray-900 text-lg">{f.title}</h3>
-                <p className="text-gray-500 mt-2">{f.desc}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+            {features.map(f => (
+              <div key={f.title} style={{ background: '#f9fafb', borderRadius: '16px', padding: '28px', border: '1.5px solid #f3f4f6', transition: 'all 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#facc15'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#f3f4f6'; }}>
+                <div style={{ width: '48px', height: '48px', background: '#facc15', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', marginBottom: '16px' }}>{f.icon}</div>
+                <h3 style={{ fontWeight: 900, color: '#111827', fontSize: '17px', margin: '0 0 8px 0' }}>{f.title}</h3>
+                <p style={{ color: '#6b7280', fontSize: '14px', margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -270,57 +237,53 @@ export default function Home() {
       </section>
 
       {/* 2nd Quote Form */}
-      <section className="py-20 px-4 bg-gray-900">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="text-white">
-            <h2 className="text-3xl md:text-4xl font-black">Ready to Order<br /><span className="text-yellow-400">Custom Boxes?</span></h2>
-            <p className="mt-4 text-gray-400 text-lg">Get a free quote in minutes. No hidden fees. Free design & free shipping included.</p>
-            <ul className="mt-6 space-y-2 text-gray-300">
-              {['Free design consultation', 'No die or plate charges', 'Ships anywhere in the USA', '100% satisfaction guarantee'].map(i => (
-                <li key={i} className="flex items-center gap-2"><span className="text-yellow-400 font-black">✓</span>{i}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-white rounded-2xl p-6">
-            <h3 className="text-xl font-black text-gray-900 mb-4">Get Your Free Quote</h3>
-            <form onSubmit={handleQuoteSubmit} className="space-y-3">
-              <input type="text" placeholder="Your Name *" required
-                value={quoteForm.name} onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-yellow-400" />
-              <input type="email" placeholder="Email Address *" required
-                value={quoteForm.email} onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-yellow-400" />
-              <select required value={quoteForm.boxType} onChange={(e) => setQuoteForm({ ...quoteForm, boxType: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-yellow-400 text-gray-600">
-                <option value="">Select Box Type *</option>
-                {['Cardboard Boxes','Mailer Boxes','Kraft Boxes','Rigid Boxes','Corrugated Boxes','Display Boxes','Cosmetic Boxes','Food Boxes','Other'].map(b => (
-                  <option key={b} value={b}>{b}</option>
+      <section style={{ background: '#111827', padding: '80px 0' }}>
+        <div style={S.container}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center' }}>
+            <div style={{ color: 'white' }}>
+              <h2 style={{ fontSize: '40px', fontWeight: 900, margin: '0 0 16px 0' }}>Ready to Order <span style={{ color: '#facc15' }}>Custom Boxes?</span></h2>
+              <p style={{ color: '#9ca3af', fontSize: '17px', margin: '0 0 28px 0', lineHeight: 1.7 }}>Get a free quote in minutes. No hidden fees. Free design & free shipping included.</p>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {['Free design consultation', 'No die or plate charges', 'Ships anywhere in the USA', '100% satisfaction guarantee'].map(i => (
+                  <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#d1d5db', fontSize: '15px' }}>
+                    <span style={{ color: '#facc15', fontWeight: 900 }}>✓</span>{i}
+                  </li>
                 ))}
-              </select>
-              <button type="submit" disabled={quoteStatus === 'sending'}
-                className="w-full bg-red-600 text-white py-3 rounded-lg font-black hover:bg-red-700 transition disabled:opacity-50">
-                {quoteStatus === 'sending' ? 'Sending...' : '🚀 Get Free Quote Now'}
-              </button>
-            </form>
+              </ul>
+            </div>
+            <div style={{ background: 'white', borderRadius: '20px', padding: '36px' }}>
+              <h3 style={{ fontWeight: 900, fontSize: '20px', margin: '0 0 20px 0', color: '#111827' }}>Get Your Free Quote</h3>
+              <form onSubmit={handleQuoteSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <input type="text" placeholder="Your Name *" required value={quoteForm.name} onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })} style={inputStyle} />
+                <input type="email" placeholder="Email Address *" required value={quoteForm.email} onChange={(e) => setQuoteForm({ ...quoteForm, email: e.target.value })} style={inputStyle} />
+                <select required value={quoteForm.boxType} onChange={(e) => setQuoteForm({ ...quoteForm, boxType: e.target.value })} style={{ ...inputStyle, color: quoteForm.boxType ? '#111827' : '#9ca3af' }}>
+                  <option value="">Select Box Type *</option>
+                  {['Cardboard Boxes', 'Mailer Boxes', 'Kraft Boxes', 'Rigid Boxes', 'Corrugated Boxes', 'Display Boxes', 'Cosmetic Boxes', 'Food Boxes', 'Other'].map(b => <option key={b} value={b}>{b}</option>)}
+                </select>
+                <button type="submit" disabled={quoteStatus === 'sending'} style={{ background: '#dc2626', color: 'white', border: 'none', padding: '14px', borderRadius: '10px', fontWeight: 900, fontSize: '16px', cursor: 'pointer' }}>
+                  {quoteStatus === 'sending' ? 'Sending...' : '🚀 Get Free Quote Now'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">What Our Clients Say</h2>
-            <p className="text-gray-500 mt-3 text-lg">Trusted by 5,000+ businesses across the USA</p>
+      <section style={{ ...S.section, background: '#f9fafb' }}>
+        <div style={S.container}>
+          <div style={S.sectionTitle}>
+            <h2 style={S.h2}>What Our Clients Say</h2>
+            <p style={S.subtitle}>Trusted by 5,000+ businesses across the USA</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:border-yellow-400 transition">
-                <div className="flex text-yellow-400 mb-3 text-lg">{'★'.repeat(t.rating)}</div>
-                <p className="text-gray-600 text-sm leading-relaxed">"{t.text}"</p>
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="font-black text-gray-900">{t.name}</div>
-                  <div className="text-yellow-600 text-sm font-semibold">{t.company}</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            {testimonials.map(t => (
+              <div key={t.name} style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1.5px solid #e5e7eb', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                <div style={{ color: '#facc15', fontSize: '18px', marginBottom: '12px' }}>{'★'.repeat(t.rating)}</div>
+                <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: 1.7, margin: '0 0 16px 0' }}>"{t.text}"</p>
+                <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '16px' }}>
+                  <div style={{ fontWeight: 900, color: '#111827', fontSize: '14px' }}>{t.name}</div>
+                  <div style={{ color: '#d97706', fontSize: '13px', fontWeight: 600, marginTop: '2px' }}>{t.company}</div>
                 </div>
               </div>
             ))}
@@ -329,22 +292,21 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Frequently Asked Questions</h2>
-            <p className="text-gray-500 mt-3">Got questions? We have answers.</p>
+      <section style={{ ...S.section, background: 'white' }}>
+        <div style={{ maxWidth: '760px', margin: '0 auto', padding: '0 48px' }}>
+          <div style={S.sectionTitle}>
+            <h2 style={S.h2}>Frequently Asked Questions</h2>
+            <p style={S.subtitle}>Got questions? We have answers.</p>
           </div>
-          <div className="space-y-3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {faqs.map((faq, i) => (
-              <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full text-left px-6 py-4 font-black text-gray-900 flex items-center justify-between hover:bg-gray-50 transition">
+              <div key={i} style={{ border: '1.5px solid #e5e7eb', borderRadius: '12px', overflow: 'hidden' }}>
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 24px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 800, fontSize: '15px', color: '#111827', textAlign: 'left' }}>
                   {faq.q}
-                  <span className="text-yellow-500 text-xl font-black">{openFaq === i ? '−' : '+'}</span>
+                  <span style={{ color: '#facc15', fontSize: '22px', fontWeight: 900, flexShrink: 0, marginLeft: '16px' }}>{openFaq === i ? '−' : '+'}</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 py-4 text-gray-600 border-t border-gray-100 bg-gray-50">{faq.a}</div>
+                  <div style={{ padding: '0 24px 20px 24px', color: '#6b7280', fontSize: '15px', lineHeight: 1.7, borderTop: '1px solid #f3f4f6', paddingTop: '16px' }}>{faq.a}</div>
                 )}
               </div>
             ))}
@@ -353,15 +315,16 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 px-4 bg-yellow-400 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900">Start Your Custom Box Order Today</h2>
-          <p className="mt-4 text-gray-800 text-lg">Free design · Free shipping · 50 minimum · 7-day turnaround</p>
-          <Link href="/quote" className="mt-8 inline-block bg-gray-900 text-white px-10 py-4 rounded-lg font-black text-lg hover:bg-gray-800 transition">
+      <section style={{ background: '#facc15', padding: '80px 0', textAlign: 'center' }}>
+        <div style={S.container}>
+          <h2 style={{ fontSize: '40px', fontWeight: 900, color: '#111827', margin: '0 0 12px 0' }}>Start Your Custom Box Order Today</h2>
+          <p style={{ fontSize: '18px', color: '#78350f', margin: '0 0 32px 0' }}>Free design · Free shipping · 50 minimum · 7-day turnaround</p>
+          <Link href="/quote" style={{ display: 'inline-block', background: '#111827', color: 'white', padding: '16px 48px', borderRadius: '14px', fontWeight: 900, textDecoration: 'none', fontSize: '18px' }}>
             Get Free Quote Now →
           </Link>
         </div>
       </section>
+
     </Layout>
   );
 }
